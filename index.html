@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#061428">
-<title>Seven Months Under the Same Sky ♡</title>
+<title>Seven Months Under the Same Sea ♡</title>
 <style>
 :root {
   --deep: #061428;
@@ -279,50 +279,117 @@ p { color: #b8d0dc; font-size: 1rem; }
 .e7 { background: linear-gradient(160deg, #3a2848, #2a1e38); }
 .letter-card:hover { transform: translateY(-2px); }
 .letter-card[open]:hover { transform: none; }
+
+/* SECCIÓN DE DIBUJOS DESPLEGABLES */
 .doodles {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  margin: 26px 0;
+  margin: 26px auto;
+  max-width: 820px;
 }
 .doodle-card {
   border-radius: 16px;
+  border: 1px solid rgba(126, 184, 212, 0.2);
+  background: rgba(10, 26, 46, 0.55);
+  backdrop-filter: blur(8px);
   overflow: hidden;
-  border: 1px solid rgba(126, 184, 212, 0.18);
-  background: rgba(12, 28, 48, 0.5);
-  transition: transform 0.22s;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+.doodle-card:hover {
+  border-color: rgba(126, 184, 212, 0.45);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+.doodle-trigger {
+  width: 100%;
+  padding: 16px 22px;
+  background: rgba(16, 40, 68, 0.45);
+  border: none;
+  color: #e0f0f8;
+  font-family: inherit;
+  font-size: 1.05rem;
+  text-align: left;
   cursor: pointer;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: background 0.2s, color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
-.doodle-card:hover { transform: translateY(-3px); }
-.doodle-card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
+.doodle-trigger:hover, .doodle-trigger:focus {
+  background: rgba(28, 60, 95, 0.65);
+  color: #ffffff;
+  outline: none;
+}
+.doodle-trigger .trigger-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.doodle-trigger .trigger-icon {
+  font-size: 22px;
+}
+.doodle-trigger .trigger-title {
+  font-weight: normal;
+}
+.doodle-trigger .trigger-arrow {
+  font-size: 14px;
+  color: #7eb8d4;
+  transition: transform 0.3s ease;
+}
+.doodle-card.active .doodle-trigger .trigger-arrow {
+  transform: rotate(180deg);
+}
+.doodle-panel {
+  display: none;
+  padding: 22px;
+  border-top: 1px solid rgba(126, 184, 212, 0.15);
+  background: rgba(6, 20, 40, 0.4);
+}
+.doodle-card.active .doodle-panel {
   display: block;
+  animation: appear 0.35s ease-out;
+}
+.doodle-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+}
+.doodle-img-wrap {
+  flex: 0 0 42%;
+  max-width: 380px;
+  min-width: 250px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(126, 184, 212, 0.22);
   background: #0a1c30;
 }
-.doodle-card .caption {
-  padding: 12px 14px;
-  font-size: 13px;
-  color: #a8c8d8;
-  text-align: center;
+.doodle-img-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
-.doodle-note {
-  display: none;
+.doodle-text {
+  flex: 1;
+  text-align: left;
+}
+.doodle-text h3 {
+  font-size: 1.25rem;
+  color: #e8f4f8;
+  margin-bottom: 10px;
+}
+.doodle-text p {
   color: #d8c0d0;
   font-style: italic;
-  margin-top: 14px;
-  padding: 14px 18px;
-  background: rgba(16, 36, 58, 0.55);
-  border-radius: 12px;
-  border: 1px solid rgba(200, 160, 180, 0.15);
+  font-size: 1.02rem;
+  line-height: 1.7;
 }
-.doodle-note.show {
-  display: block;
-  animation: appear 0.3s ease;
-}
+
 @keyframes appear {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: none; }
@@ -477,10 +544,22 @@ footer .hearts {
   main { padding: 0 16px 50px; }
   section { padding: 46px 0; }
   .envelopes { grid-template-columns: repeat(2, 1fr); }
-  .doodles { grid-template-columns: 1fr; }
-  .doodle-card img { height: 230px; }
   .music-list { grid-template-columns: 1fr; }
   .ocean-row { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+  .doodle-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+  .doodle-img-wrap {
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+  .doodle-text {
+    text-align: center;
+  }
 }
 @media (max-width: 480px) {
   .ocean-row { grid-template-columns: repeat(3, 1fr); }
@@ -519,7 +598,7 @@ footer .hearts {
     <section class="hero" id="home">
       <div class="hero-copy">
         <div class="kicker">nuestro pequeño universo</div>
-        <h1>Seven Months<br>Under the Same Sky</h1>
+        <h1>Seven Months<br>Under the Same Sea</h1>
         <p class="subtitle">Un océano de pequeñas cosas que amo de ti.</p>
         <p style="margin-bottom:18px;color:#a8c4d4">Para mi amor, Kaelen. Preparé un pequeño universo para ti: con palabras, canciones, dibujos y una medusita que te representa. ¿Lo exploramos juntos?</p>
         <a class="btn" href="#letters">Abrir mi regalo</a>
@@ -563,7 +642,6 @@ footer .hearts {
       <h2>Siete cartitas para ti</h2>
       <p style="max-width:480px;margin:0 auto 6px;color:#8aadc0">Elige una. Cada sobre guarda una parte de lo que quiero decirte.</p>
       <div class="envelopes">
-        <!-- Letters content kept from previous version - abbreviated here for length but full in actual -->
         <details class="letter-card e1">
           <summary><span>✉️</span><strong>Donde comenzó nuestra luz</strong><small>nuestro comienzo</small></summary>
           <div class="letter-content">01. Donde comenzó nuestra luz
@@ -596,7 +674,7 @@ Qué fortuna la mía, haber coincidido contigo.
 
 Te amo muchísimo, mi príncipe hermoso. Y me alegra que, entre todas las posibilidades, nuestros caminos hayan elegido encontrarse.</div>
         </details>
-        <!-- Remaining letters abbreviated for this response - full content is preserved in the actual file from previous version -->
+        
         <details class="letter-card e2">
           <summary><span>🌙</span><strong>Amanecer contigo</strong><small>mi recuerdo favorito</small></summary>
           <div class="letter-content">02. Amanecer contigo
@@ -625,6 +703,7 @@ Porque, entre todas las cosas bonitas que puede traer un nuevo día, una de mis 
 
 Te amo muchísimo, mi amor. ♡</div>
         </details>
+        
         <details class="letter-card e3">
           <summary><span>🎵</span><strong>La melodía que tiene tu risa</strong><small>las cosas cotidianas</small></summary>
           <div class="letter-content">03. La melodía que tiene tu risa
@@ -655,6 +734,7 @@ Te amo muchísimo, mi príncipe. ♡
 
 Con una sonrisa que provocaste tú, tu estrellita.</div>
         </details>
+        
         <details class="letter-card e4">
           <summary><span>🪼</span><strong>Tu universo, tal como eres</strong><small>todas tus versiones</small></summary>
           <div class="letter-content">04. Tu universo, tal como eres.
@@ -685,6 +765,7 @@ No tienes que convertirte en alguien más para ser alguien a quien quiero. Tu un
 
 Te amo, mi príncipe hermoso. Nunca lo olvides. ♡</div>
         </details>
+        
         <details class="letter-card e5">
           <summary><span>💌</span><strong>Cuando el océano se agite</strong><small>para los días difíciles</small></summary>
           <div class="letter-content">05. Cuando el océano se agite
@@ -705,6 +786,7 @@ No tienes que brillar para mí, amor. Me gusta conocerte en todas tus versiones,
 
 Siempre estaré a tu lado, mi bello esposo. No importa lo que los demás digan de ti, siempre serás tú, mi hermoso Kaelen.</div>
         </details>
+        
         <details class="letter-card e6">
           <summary><span>⭐</span><strong>Todos los cielos que nos esperan</strong><small>nuestros sueños</small></summary>
           <div class="letter-content">06. Todos los cielos que nos esperan
@@ -729,6 +811,7 @@ Quiero que persigas tus sueños, amor. Que te permitas cambiar de opinión, equi
 
 Nos esperan tantos cielos, tantas mañanas y tantos pequeños universos por conocer. No sé exactamente qué forma tendrán, pero me hace feliz pensar que aún hay muchísimo por vivir. Y entre todas esas cosas que el futuro podría guardar para nosotros, espero que nunca nos falten las ganas de seguir descubriéndonos.</div>
         </details>
+        
         <details class="letter-card e7">
           <summary><span>♡</span><strong>Si volviera a encontrarte</strong><small>una última carta</small></summary>
           <div class="letter-content">07. Si volviera a encontrarte
@@ -756,30 +839,79 @@ Si volviera a encontrarte, te elegiría otra vez. Y después, cuando llegara el 
       </div>
     </section>
 
+    <!-- SECCIÓN DE DIBUJOS DESPLEGABLES -->
     <section id="doodles">
       <div class="kicker">02 · garabatos con amor</div>
       <h2>Dibujos para ti</h2>
-      <p style="max-width:440px;margin:0 auto 6px;color:#8aadc0">Pequeños dibujos, grandes verdades.</p>
+      <p style="max-width:480px;margin:0 auto 18px;color:#8aadc0">Pequeños dibujos, grandes verdades. Toca cada mensaje para descubrirlo.</p>
+      
       <div class="doodles">
-        <div class="doodle-card" onclick="toggleNote('n1')">
-          <img src="dibujo1.png" alt="Nosotros de cerca" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div style="display:none;height:200px;align-items:center;justify-content:center;font-size:42px;background:#0a1c30">💕</div>
-          <div class="caption">Tú y yo, siempre…</div>
+        <!-- Dibujo 1 -->
+        <div class="doodle-card" id="card-d1">
+          <button type="button" class="doodle-trigger" onclick="toggleDoodle('card-d1')" aria-expanded="false">
+            <span class="trigger-content">
+              <span class="trigger-icon">💕</span>
+              <span class="trigger-title">Tú y yo, siempre…</span>
+            </span>
+            <span class="trigger-arrow">▼</span>
+          </button>
+          <div class="doodle-panel">
+            <div class="doodle-flex">
+              <div class="doodle-img-wrap">
+                <img src="dibujo1.png" alt="Nosotros de cerca" onerror="this.style.display='none'">
+              </div>
+              <div class="doodle-text">
+                <h3>Tú y yo, siempre…</h3>
+                <p>«Cuando estamos así de cerca, el mundo se vuelve un poco más suave.»</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="doodle-card" onclick="toggleNote('n2')">
-          <img src="dibujo2.png" alt="Nuestro castillo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div style="display:none;height:200px;align-items:center;justify-content:center;font-size:42px;background:#0a1c30">🏰</div>
-          <div class="caption">Nuestro pequeño castillo</div>
+
+        <!-- Dibujo 2 -->
+        <div class="doodle-card" id="card-d2">
+          <button type="button" class="doodle-trigger" onclick="toggleDoodle('card-d2')" aria-expanded="false">
+            <span class="trigger-content">
+              <span class="trigger-icon">🏰</span>
+              <span class="trigger-title">Nuestro pequeño castillo</span>
+            </span>
+            <span class="trigger-arrow">▼</span>
+          </button>
+          <div class="doodle-panel">
+            <div class="doodle-flex">
+              <div class="doodle-img-wrap">
+                <img src="dibujo2.png" alt="Nuestro castillo" onerror="this.style.display='none'">
+              </div>
+              <div class="doodle-text">
+                <h3>Nuestro pequeño castillo</h3>
+                <p>«Aunque sea de noche y el camino sea largo, contigo cualquier lugar se siente como casa.»</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="doodle-card" onclick="toggleNote('n3')">
-          <img src="dibujo3.png" alt="Llaverito K+O" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div style="display:none;height:200px;align-items:center;justify-content:center;font-size:42px;background:#0a1c30">🔑</div>
-          <div class="caption">K + O</div>
+
+        <!-- Dibujo 3 -->
+        <div class="doodle-card" id="card-d3">
+          <button type="button" class="doodle-trigger" onclick="toggleDoodle('card-d3')" aria-expanded="false">
+            <span class="trigger-content">
+              <span class="trigger-icon">🔑</span>
+              <span class="trigger-title">K + O</span>
+            </span>
+            <span class="trigger-arrow">▼</span>
+          </button>
+          <div class="doodle-panel">
+            <div class="doodle-flex">
+              <div class="doodle-img-wrap">
+                <img src="dibujo3.png" alt="Llaverito K+O" onerror="this.style.display='none'">
+              </div>
+              <div class="doodle-text">
+                <h3>K + O</h3>
+                <p>«Dos personitas unidas por una misma llave… y un mismo corazón.»</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <p id="n1" class="doodle-note">Cuando estamos así de cerca, el mundo se vuelve un poco más suave.</p>
-      <p id="n2" class="doodle-note">Aunque sea de noche y el camino sea largo, contigo cualquier lugar se siente como casa.</p>
-      <p id="n3" class="doodle-note">Dos personitas unidas por una misma llave… y un mismo corazón.</p>
     </section>
 
     <section id="memories">
@@ -852,6 +984,7 @@ Si volviera a encontrarte, te elegiría otra vez. Y después, cuando llegara el 
       <div class="panel" style="max-width:720px;margin:0 auto">
         <div class="video-wrap">
           <video controls playsinline preload="metadata" style="width:100%;height:100%;object-fit:contain;background:#0a1a2c;">
+            <source src="sorpresa.MP4" type="video/mp4">
             <source src="sorpresa.mp4" type="video/mp4">
           </video>
         </div>
@@ -900,14 +1033,26 @@ const oceanNotes = [
   "Que construyamos algo amable, honesto y nuestro; algo que podamos cuidar entre los dos.",
   "Y que, cuando mires atrás, encuentres muchos momentos en los que te sentiste querido siendo exactamente tú."
 ];
+
 function showOcean(i) {
   const p = document.getElementById('oceanMessage');
   p.textContent = oceanNotes[i];
   p.classList.add('show');
 }
-function toggleNote(id) {
-  document.getElementById(id).classList.toggle('show');
+
+/* LÓGICA DE INTERACCIÓN PARA LOS DIBUJOS */
+function toggleDoodle(cardId) {
+  const card = document.getElementById(cardId);
+  if (card) {
+    const isActive = card.classList.toggle('active');
+    const btn = card.querySelector('.doodle-trigger');
+    if (btn) {
+      btn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+    }
+  }
 }
+
+/* EFECTO DE BURBUJAS FLOTANTES */
 for (let i = 0; i < 12; i++) {
   const b = document.createElement('i');
   b.className = 'bubble';
